@@ -4,28 +4,25 @@
         focusComponent="form"
         messagesPack="ru.company.task4indoorsoft.web.screens.employee">
     <data>
-        <collection id="employeeDc"
-                    class="ru.company.task4indoorsoft.entity.Employee"
-                    view="_local">
-            <loader>
-                <query>
-                    select e from Employee e order by e.lastName
-                </query>
-            </loader>
-        </collection>
+        <instance id="employeeDc"
+                  class="ru.company.task4indoorsoft.entity.Employee"
+                  view="view-employees">
+            <loader/>
+        </instance>
     </data>
-    <dialogMode height="600" width="800"/>
+    <dialogMode height="600"
+                width="800"/>
     <layout expand="editActions" spacing="true">
         <form id="form" dataContainer="employeeDc">
-            <column width="250px">
+            <column width="350px">
                 <textField id="lastNameField" property="lastName"/>
                 <textField id="nameField" property="name"/>
                 <textField id="patronymicField" property="patronymic"/>
             </column>
         </form>
         <hbox id="editActions" spacing="true">
-            <button action="windowCommitAndClose"/>
-            <button action="windowClose"/>
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" action="windowClose"/>
         </hbox>
     </layout>
 </window>

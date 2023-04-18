@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <menu-config xmlns="http://schemas.haulmont.com/cuba/menu.xsd">
     <menu id="application-task4indoorsoft" insertBefore="administration" caption="mainMsg://menu_config.application-task4indoorsoft">
-        <item screen="task4indoorsoft_Employees" caption="mainMsg://menu_config.task4indoorsoft_Employees"/>
-        <item screen="task4indoorsoft_EmployeeEdit" caption="mainMsg://menu_config.task4indoorsoft_EmployeeEdit"/>
+        <item screen="Employee.browse" caption="mainMsg://menu_config.Employee.browse"/>
+        <item screen="project.browse" caption="mainMsg://menu_config.project.browse"/>
     </menu>
 </menu-config>

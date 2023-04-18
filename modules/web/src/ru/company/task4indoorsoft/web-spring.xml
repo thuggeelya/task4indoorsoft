@@ -5,7 +5,7 @@
 
     <!-- Annotation-based beans -->
     <context:component-scan base-package="ru.company.task4indoorsoft"/>
-    
-    <gui:screens base-packages="ru.company.task4indoorsoft.web"/>
+
+    <gui:screens base-packages="ru.company.task4indoorsoft.web.screens"/>
 
 </beans>

@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <views xmlns="http://schemas.haulmont.com/cuba/view.xsd">
 
-    <view class="ru.company.task4indoorsoft.entity.Employee" name="view-employees" extends="_minimal">
-        <property name="lastName"/>
-        <property name="name"/>
-        <property name="patronymic"/>
-    </view>
+    <view class="ru.company.task4indoorsoft.entity.Employee" name="view-employees" extends="_local"/>
 
     <view class="ru.company.task4indoorsoft.entity.Project"
           name="view-project"
