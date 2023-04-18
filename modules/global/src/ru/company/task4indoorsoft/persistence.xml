@@ -4,5 +4,6 @@
 
         <class>ru.company.task4indoorsoft.entity.Employee</class>
         <class>ru.company.task4indoorsoft.entity.Project</class>
+        <class>ru.company.task4indoorsoft.entity.ProjectEmployee</class>
     </persistence-unit>
 </persistence>

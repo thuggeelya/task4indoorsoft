@@ -1,1 +1,2 @@
-alter table EMPLOYEE add constraint FK_EMPLOYEE_ON_PROJECT foreign key (ID) references PROJECT(ID);
+alter table PROJECT_EMPLOYEE add constraint FK_PROJECT_EMPLOYEE_ON_EMPLOYEE foreign key (ID) references EMPLOYEE(ID);
+alter table PROJECT_EMPLOYEE add constraint FK_PROJECT_EMPLOYEE_ON_PROJECT foreign key (ID) references PROJECT(ID);

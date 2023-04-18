@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://employeeEdit.caption"
+        focusComponent="form"
+        messagesPack="ru.company.task4indoorsoft.web.screens.employee">
+    <data>
+        <collection id="employeeDc"
+                    class="ru.company.task4indoorsoft.entity.Employee"
+                    view="_local">
+            <loader>
+                <query>
+                    select e from Employee e order by e.lastName
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600" width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="employeeDc">
+            <column width="250px">
+                <textField id="lastNameField" property="lastName"/>
+                <textField id="nameField" property="name"/>
+                <textField id="patronymicField" property="patronymic"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

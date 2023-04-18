@@ -1,25 +1,31 @@
 package ru.company.task4indoorsoft.entity;
 
+import com.haulmont.chile.core.annotations.Composition;
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
+import com.haulmont.cuba.core.entity.annotation.OnDelete;
+import com.haulmont.cuba.core.global.DeletePolicy;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Table(name = "EMPLOYEE")
 @Entity(name = "Employee")
-@NamePattern("{0} {1.substring(0,1)}.{2?.substring(0,1)}|lastName,name,patronymic")
+@NamePattern("%s %s|name,lastName")
 public class Employee extends StandardEntity {
     private static final long serialVersionUID = -2723083574940746946L;
 
-    @Column(name = "LAST_NAME", nullable = false)
+    @Column(name = "LAST_NAME", length = 100, nullable = false)
     protected String lastName;
-    @Column(name = "NAME", nullable = false)
+    @Column(name = "NAME", length = 50, nullable = false)
     protected String name;
     @Column(name = "PATRONYMIC")
     protected String patronymic;
-    @ManyToMany(mappedBy = "employees")
-    protected Set<Project> projects;
+
+    @Composition
+    @OnDelete(DeletePolicy.CASCADE)
+    @OneToMany(mappedBy = "employee")
+    protected Set<ProjectEmployee> projectsSet;
 
     public String getLastName() {
         return lastName;
@@ -45,11 +51,11 @@ public class Employee extends StandardEntity {
         this.patronymic = patronymic;
     }
 
-    public Set<Project> getProjects() {
-        return projects;
+    public Set<ProjectEmployee> getProjectsSet() {
+        return projectsSet;
     }
 
-    public void setProjects(Set<Project> projects) {
-        this.projects = projects;
+    public void setProjectsSet(Set<ProjectEmployee> projectsSet) {
+        this.projectsSet = projectsSet;
     }
 }

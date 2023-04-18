@@ -1,7 +1,10 @@
 package ru.company.task4indoorsoft.entity;
 
+import com.haulmont.chile.core.annotations.Composition;
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
+import com.haulmont.cuba.core.entity.annotation.OnDelete;
+import com.haulmont.cuba.core.global.DeletePolicy;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -12,13 +15,13 @@ import java.util.Set;
 public class Project extends StandardEntity {
     private static final long serialVersionUID = 1217656651438539840L;
 
-    @Column(name = "NAME", nullable = false)
+    @Column(name = "NAME", length = 100, nullable = false)
     protected String name;
-    @JoinTable(name = "EMPLOYEE",
-            joinColumns = @JoinColumn(name = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "ID"))
-    @ManyToMany
-    protected Set<Employee> employees;
+
+    @Composition
+    @OnDelete(DeletePolicy.CASCADE)
+    @OneToMany(mappedBy = "project")
+    protected Set<ProjectEmployee> employeeSet;
 
     public String getName() {
         return name;
@@ -28,11 +31,11 @@ public class Project extends StandardEntity {
         this.name = name;
     }
 
-    public Set<Employee> getEmployees() {
-        return employees;
+    public Set<ProjectEmployee> getEmployeeSet() {
+        return employeeSet;
     }
 
-    public void setEmployees(Set<Employee> employees) {
-        this.employees = employees;
+    public void setEmployeeSet(Set<ProjectEmployee> employeeSet) {
+        this.employeeSet = employeeSet;
     }
 }
