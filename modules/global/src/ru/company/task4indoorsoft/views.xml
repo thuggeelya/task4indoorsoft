@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<views xmlns="http://schemas.haulmont.com/cuba/view.xsd">
+    <view entity="Employee" name="view-employees" extends="_minimal"/>
+    <view entity="project" name="view-project" extends="_base"/>
+</views>
