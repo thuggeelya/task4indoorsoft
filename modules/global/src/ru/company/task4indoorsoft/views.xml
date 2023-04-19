@@ -7,5 +7,4 @@
           name="view-project"
           extends="_local">
     </view>
-    <view entity="project_employee" name="view-project-employee" extends="_local"/>
 </views>
