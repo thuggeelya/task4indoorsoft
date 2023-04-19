@@ -36,12 +36,23 @@ public class ProjectBrowse extends EntityCombinedScreen {
     @Subscribe
     protected void onInit(InitEvent event) {
         logger.info("onInit() start");
-        allEmployees = dataManager.load(Employee.class).list();
+        allEmployees = getAllEmployees();
         checkBoxGroup.setOptionsList(allEmployees);
         checkBoxGroup.setEditable(false);
         checkBoxGroup.setVisible(false);
         table.addSelectionListener(listener -> onSelect());
         logger.info("onInit() end");
+    }
+
+    private List<Employee> getAllEmployees() {
+        return dataManager.load(Employee.class).list();
+    }
+
+    @Subscribe("refreshBtn")
+    protected void onRefreshButtonClick(Button.ClickEvent event) {
+        allEmployees = getAllEmployees();
+        checkBoxGroup.setOptionsList(allEmployees);
+        onSelect();
     }
 
     @Subscribe("editBtn")
