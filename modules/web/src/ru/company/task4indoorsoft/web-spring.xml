@@ -7,5 +7,12 @@
     <context:component-scan base-package="ru.company.task4indoorsoft"/>
 
     <gui:screens base-packages="ru.company.task4indoorsoft.web.screens"/>
+    <bean id="task4indoorsoft_proxyCreator" class="com.haulmont.cuba.web.sys.remoting.WebRemoteProxyBeanCreator">
+        <property name="serverSelector" ref="cuba_ServerSelector"/>
+        <property name="remoteServices">
+            <map>
+            </map>
+        </property>
+    </bean>
 
 </beans>

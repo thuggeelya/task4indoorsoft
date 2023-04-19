@@ -2,17 +2,20 @@ package ru.company.task4indoorsoft.entity;
 
 import com.haulmont.chile.core.annotations.Composition;
 import com.haulmont.chile.core.annotations.NamePattern;
-import com.haulmont.cuba.core.entity.StandardEntity;
+import com.haulmont.cuba.core.entity.BaseUuidEntity;
 import com.haulmont.cuba.core.entity.annotation.OnDelete;
 import com.haulmont.cuba.core.global.DeletePolicy;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.Set;
 
 @Table(name = "PROJECT")
 @Entity(name = "project")
 @NamePattern("%s|name")
-public class Project extends StandardEntity {
+public class Project extends BaseUuidEntity {
     private static final long serialVersionUID = 1217656651438539840L;
 
     @Column(name = "NAME", length = 100, nullable = false)
@@ -20,7 +23,7 @@ public class Project extends StandardEntity {
 
     @Composition
     @OnDelete(DeletePolicy.CASCADE)
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "project", orphanRemoval = true)
     protected Set<ProjectEmployee> employeeSet;
 
     public String getName() {
@@ -37,5 +40,10 @@ public class Project extends StandardEntity {
 
     public void setEmployeeSet(Set<ProjectEmployee> employeeSet) {
         this.employeeSet = employeeSet;
+    }
+
+    @Override
+    public String toString() {
+        return "Project{" + name + '}';
     }
 }

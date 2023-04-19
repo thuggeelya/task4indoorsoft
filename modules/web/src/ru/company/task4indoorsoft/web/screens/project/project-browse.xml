@@ -12,9 +12,29 @@
                          class="ru.company.task4indoorsoft.entity.Project"
                          view="_local">
             <query>
-                <![CDATA[select e from project e]]>
+                <![CDATA[select p from project p]]>
             </query>
         </groupDatasource>
+        <datasource id="employeeDs"
+                    class="ru.company.task4indoorsoft.entity.Employee"
+                    view="_local"/>
+        <collectionDatasource id="employeesDs"
+                         class="ru.company.task4indoorsoft.entity.Employee"
+                         view="_local">
+            <query>
+                <![CDATA[select e from Employee e]]>
+            </query>
+        </collectionDatasource>
+        <datasource id="peDs"
+                    class="ru.company.task4indoorsoft.entity.Employee"
+                    view="_local"/>
+        <collectionDatasource id="pesDs"
+                         class="ru.company.task4indoorsoft.entity.ProjectEmployee"
+                         view="_local">
+            <query>
+                <![CDATA[select e from ProjectEmployee e]]>
+            </query>
+        </collectionDatasource>
     </dsContext>
     <actions>
         <action id="save" invoke="save" icon="icons/ok.png" caption="mainMsg://actions.Ok" shortcut="CTRL-ENTER"/>
@@ -24,14 +44,14 @@
     <dialogMode height="600"
                 width="800"/>
     <layout>
-        <split id="split" height="100%" orientation="horizontal" reversePosition="true" width="130%">
+        <split id="split" height="100%" orientation="horizontal" reversePosition="true" width="150%">
             <vbox id="lookupBox" expand="table" height="100%" margin="false,true,false,false" spacing="true">
                 <filter id="filter" applyTo="table" datasource="projectsDs">
                     <properties include=".*"/>
                 </filter>
                 <groupTable id="table"
                             width="130%"
-                            multiselect="true">
+                            multiselect="false">
                     <actions>
                         <action id="create"/>
                         <action id="edit"/>
@@ -52,14 +72,18 @@
                     </buttonsPanel>
                 </groupTable>
             </vbox>
-            <vbox id="editBox" height="100%" margin="false,false,false,true" expand="fieldGroupBox" spacing="true">
+
+            <vbox id="editBox" width="AUTO" height="100%" margin="true,false,false,true" expand="fieldGroupBox" spacing="true">
                 <scrollBox id="fieldGroupBox">
                     <fieldGroup id="fieldGroup" datasource="projectDs">
                         <column width="250px">
                             <field property="name"/>
                         </column>
                     </fieldGroup>
+
+                    <checkBoxGroup caption="msg://employees.caption" css="font-weight: bold" id="checkBoxGroup"/>
                 </scrollBox>
+
                 <hbox id="actionsPane" spacing="true" visible="false">
                     <button id="saveBtn" action="save"/>
                     <button id="cancelBtn" action="cancel"/>

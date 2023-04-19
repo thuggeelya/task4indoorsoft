@@ -1,7 +1,7 @@
 package ru.company.task4indoorsoft.entity;
 
 import com.haulmont.chile.core.annotations.NamePattern;
-import com.haulmont.cuba.core.entity.StandardEntity;
+import com.haulmont.cuba.core.entity.BaseUuidEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "PROJECT_EMPLOYEE")
 @Entity(name = "project_employee")
 @NamePattern("%s, %s|project,employee")
-public class ProjectEmployee extends StandardEntity {
+public class ProjectEmployee extends BaseUuidEntity {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -35,5 +35,13 @@ public class ProjectEmployee extends StandardEntity {
 
     public void setProject(Project project) {
         this.project = project;
+    }
+
+    @Override
+    public String toString() {
+        return "ProjectEmployee{" +
+                "employee=" + employee +
+                ", project=" + project +
+                '}';
     }
 }
