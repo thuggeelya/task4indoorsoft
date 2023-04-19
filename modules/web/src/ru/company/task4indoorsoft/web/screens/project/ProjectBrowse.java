@@ -1,6 +1,7 @@
 package ru.company.task4indoorsoft.web.screens.project;
 
 import com.haulmont.cuba.core.global.DataManager;
+import com.haulmont.cuba.core.global.FluentLoader;
 import com.haulmont.cuba.gui.components.Button;
 import com.haulmont.cuba.gui.components.CheckBoxGroup;
 import com.haulmont.cuba.gui.components.EntityCombinedScreen;
@@ -14,6 +15,7 @@ import javax.inject.Inject;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -52,7 +54,7 @@ public class ProjectBrowse extends EntityCombinedScreen {
     protected void onRefreshButtonClick(Button.ClickEvent event) {
         allEmployees = getAllEmployees();
         checkBoxGroup.setOptionsList(allEmployees);
-        onSelect();
+        logger.info("data has been updated");
     }
 
     @Subscribe("editBtn")
@@ -62,6 +64,8 @@ public class ProjectBrowse extends EntityCombinedScreen {
         if (cachedParticipants == null) {
             cachedParticipants = getParticipantsInCurrentProject();
         }
+
+        logger.info("editing project: " + currentProject);
     }
 
     @Subscribe("cancelBtn")
@@ -77,8 +81,8 @@ public class ProjectBrowse extends EntityCombinedScreen {
 
         if (editedParticipants == null) {
             cachedParticipants.stream()
-                    .map(this::findCurrentProjectEmployeesByEmployee)
-                    .flatMap(List::stream)
+                    .map(this::findCurrentProjectEmployeeByEmployee)
+//                    .flatMap(List::stream)
                     .forEach(pe -> dataManager.remove(pe));
         } else if (!(editedParticipants.containsAll(cachedParticipants) && cachedParticipants.containsAll(editedParticipants))) {
             // adding
@@ -93,8 +97,9 @@ public class ProjectBrowse extends EntityCombinedScreen {
             // removal
             cachedParticipants.stream().filter(e -> !editedParticipants.contains(e)).collect(Collectors.toList())
                     .forEach(e -> {
-                        findCurrentProjectEmployeesByEmployee(e).forEach(pe -> dataManager.remove(pe));
-                        logger.info("participation deleted");
+                        ProjectEmployee pe = findCurrentProjectEmployeeByEmployee(e);
+                        dataManager.remove(pe);
+                        logger.info("participation deleted: " + pe);
                     });
         } else {
             logger.info("nothing has been changed");
@@ -127,12 +132,22 @@ public class ProjectBrowse extends EntityCombinedScreen {
         return allEmployees.stream().filter(e -> pe.getEmployee().equals(e)).findFirst().orElse(null);
     }
 
-    private List<ProjectEmployee> findCurrentProjectEmployeesByEmployee(Employee e) {
+    // for physical deletion from db
+    private ProjectEmployee findCurrentProjectEmployeeByEmployee(Employee e) {
+        return getProjectEmployeeLoader(e).one();
+    }
+
+    private FluentLoader.ByQuery<ProjectEmployee, UUID> getProjectEmployeeLoader(Employee e) {
         return dataManager.load(ProjectEmployee.class)
                 .query("select e from project_employee e where e.employee.id = :eid and e.project.id = :pid")
                 .parameter("eid", e.getId())
-                .parameter("pid", currentProject.getId())
-                .list();
+                .parameter("pid", currentProject.getId());
+    }
+
+    // for soft deletion from db
+    @SuppressWarnings("unused")
+    private List<ProjectEmployee> findCurrentProjectEmployeesByEmployee(Employee e) {
+        return getProjectEmployeeLoader(e).list();
     }
 
     private void cacheSelectedProjectParticipantsBeforeEditing(List<Employee> participants) {
