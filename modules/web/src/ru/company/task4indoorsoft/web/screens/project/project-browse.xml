@@ -15,26 +15,6 @@
                 <![CDATA[select p from project p]]>
             </query>
         </groupDatasource>
-        <datasource id="employeeDs"
-                    class="ru.company.task4indoorsoft.entity.Employee"
-                    view="_local"/>
-        <collectionDatasource id="employeesDs"
-                         class="ru.company.task4indoorsoft.entity.Employee"
-                         view="_local">
-            <query>
-                <![CDATA[select e from Employee e]]>
-            </query>
-        </collectionDatasource>
-        <datasource id="peDs"
-                    class="ru.company.task4indoorsoft.entity.Employee"
-                    view="_local"/>
-        <collectionDatasource id="pesDs"
-                         class="ru.company.task4indoorsoft.entity.ProjectEmployee"
-                         view="_local">
-            <query>
-                <![CDATA[select e from ProjectEmployee e]]>
-            </query>
-        </collectionDatasource>
     </dsContext>
     <actions>
         <action id="save" invoke="save" icon="icons/ok.png" caption="mainMsg://actions.Ok" shortcut="CTRL-ENTER"/>

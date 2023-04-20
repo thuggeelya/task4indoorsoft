@@ -38,7 +38,7 @@ public class ProjectBrowse extends EntityCombinedScreen {
     @Subscribe
     protected void onInit(InitEvent event) {
         logger.info("onInit() start");
-        allEmployees = getAllEmployees();
+        setEmployees();
         checkBoxGroup.setOptionsList(allEmployees);
         checkBoxGroup.setEditable(false);
         checkBoxGroup.setVisible(false);
@@ -46,14 +46,14 @@ public class ProjectBrowse extends EntityCombinedScreen {
         logger.info("onInit() end");
     }
 
-    private List<Employee> getAllEmployees() {
-        return dataManager.load(Employee.class).list();
+    private void setEmployees() {
+        allEmployees = dataManager.load(Employee.class).list();
+        checkBoxGroup.setOptionsList(allEmployees);
     }
 
     @Subscribe("refreshBtn")
     protected void onRefreshButtonClick(Button.ClickEvent event) {
-        allEmployees = getAllEmployees();
-        checkBoxGroup.setOptionsList(allEmployees);
+        setEmployees();
         logger.info("data has been updated");
     }
 
