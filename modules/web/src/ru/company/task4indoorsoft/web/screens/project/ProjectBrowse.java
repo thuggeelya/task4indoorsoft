@@ -39,7 +39,6 @@ public class ProjectBrowse extends EntityCombinedScreen {
     protected void onInit(InitEvent event) {
         logger.info("onInit() start");
         setEmployees();
-        checkBoxGroup.setOptionsList(allEmployees);
         checkBoxGroup.setEditable(false);
         checkBoxGroup.setVisible(false);
         table.addSelectionListener(listener -> onSelect());
